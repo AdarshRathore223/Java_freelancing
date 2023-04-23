@@ -1,8 +1,10 @@
 package packages.Graphics;
 
-
+import packages.Database.DbConnection;
 import javax.swing.JButton;
 import java.awt.EventQueue;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,8 +14,8 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
 import java.sql.Connection;
-
-public class Gui {
+import packages.Graphics.Editpanel;
+public class Registerpanel {
 	
 	
 	
@@ -21,7 +23,7 @@ public class Gui {
 	private JFrame frame;
 	private JTextField Faculty_id;
 	private JTextField First_name;
-	private JTextField Fast_name;
+	private JTextField Last_name;
 	private JTextField Address;
 	private JTextField Contact_no;
 	private JTextField Email_Id;
@@ -33,7 +35,7 @@ public class Gui {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Gui window = new Gui();
+					Registerpanel window = new Registerpanel();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -45,7 +47,7 @@ public class Gui {
 	/**
 	 * Create the application.
 	 */
-	public Gui() {
+	public Registerpanel() {
 		initialize();
 	}
 
@@ -122,10 +124,10 @@ public class Gui {
 		First_name.setBounds(199, 199, 259, 20);
 		panel.add(First_name);
 		
-		Fast_name = new JTextField();
-		Fast_name.setColumns(10);
-		Fast_name.setBounds(199, 247, 259, 20);
-		panel.add(Fast_name);
+		Last_name = new JTextField();
+		Last_name.setColumns(10);
+		Last_name.setBounds(199, 247, 259, 20);
+		panel.add(Last_name);
 		
 		Address = new JTextField();
 		Address.setColumns(10);
@@ -141,5 +143,31 @@ public class Gui {
 		Email_Id.setColumns(10);
 		Email_Id.setBounds(199, 440, 259, 20);
 		panel.add(Email_Id);
+
+
+		// DEBUGGGING
+		Faculty_id.setText("654456");
+		First_name.setText("moahan");
+		Last_name.setText("bhala");
+		Address.setText("blah blah blah");
+		Email_Id.setText("gg");
+		Contact_no.setText("7714171414");
+		
+		btnRegister.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(Faculty_id.getText().isEmpty() && First_name.getText().isEmpty() && Last_name.getText().isEmpty() && Address.getText().isEmpty() && Contact_no.getText().isEmpty() && Email_Id.getText().isEmpty() ) {
+					// unverified code
+				}
+				else{
+					// varified code
+					// DbConnection.entry(Faculty_id.getText(),First_name.getText(),Last_name.getText(), Address.getText(), Contact_no.getText(), Email_Id.getText());
+					panel.setVisible(false);
+					// System.exit(0);
+					frame.setVisible(false);
+					Editpanel.guicalled();
+				}
+			}
+		});
 	}
 }
