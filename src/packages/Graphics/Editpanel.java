@@ -71,13 +71,14 @@ public class Editpanel {
 		panel.add(btnSearch);
 
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(67, 156, 1000, 474);
+		panel_1.setBounds(67, 156, 1000, 374);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		JTable table = new JTable();
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 1000, 474);
+		scrollPane.setBounds(0, 0, 1000, 374);
 		panel_1.add(scrollPane);
+		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		btnSearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -86,7 +87,7 @@ public class Editpanel {
 					ResultSet rs = DbConnection.filteredData(textField.getText(), textField_1.getText(), textField_2.getText());
 					try {
 						ResultSetMetaData rsm = rs.getMetaData();
-						DefaultTableModel model = (DefaultTableModel) table.getModel();
+						
 						int cols = rsm.getColumnCount();
 						String[] colName = new String[cols];
 						int count = model.getRowCount();
@@ -122,6 +123,10 @@ public class Editpanel {
 		JButton btnClear = new JButton("Clear");
 		btnClear.setBounds(924, 44, 163, 49);
 		panel.add(btnClear);
+		
+		JButton btnSearch_1 = new JButton("Search");
+		btnSearch_1.setBounds(424, 414, 163, 49);
+		panel_1.add(btnSearch_1);
 
 		textField = new JTextField();
 		textField.setBounds(137, 58, 136, 20);
@@ -142,7 +147,6 @@ public class Editpanel {
 		ResultSet rs = DbConnection.getallentry();
 		try {
 			ResultSetMetaData rsm = rs.getMetaData();
-			DefaultTableModel model = (DefaultTableModel) table.getModel();
 			int cols = rsm.getColumnCount();
 			String[] colName = new String[cols];
 			for (int i = 0; i < cols; i++) {
@@ -168,6 +172,22 @@ public class Editpanel {
 
 		scrollPane.setViewportView(table);
 		table.setBounds(67, 156, 10, 47);
+
+		JButton btnUpdate = new JButton("Update");
+		btnUpdate.setBounds(322, 579, 163, 49);
+		panel.add(btnUpdate);
+		
+		JButton btnDelete = new JButton("Delete");
+		btnDelete.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String Value =(String) (table.getValueAt(table.getSelectedRow(), 0));
+				DbConnection.deleteentry(Value);
+				model.removeRow(table.getSelectedRow());
+			}
+		});
+		btnDelete.setBounds(560, 579, 163, 49);
+		panel.add(btnDelete);
 
 	}
 }

@@ -58,8 +58,21 @@ public class DbConnection {
         try {
             Statement stmt = con.createStatement();
             String Query = "select * from PersonData where FacultyID like '"+Facultyid+"%' and FirstName like '"+FirstName+"%' and LastName like '"+Lastname+"%'";
-            // String Query = "select * from PersonData where LastName like '"+Lastname+"%'";
-            rs = stmt.executeQuery(Query);
+            stmt.execute(Query);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return rs;
+    }
+
+    public static void deleteentry(String value) {
+        Connection con = getconnection();
+        ResultSet rs=null;
+        try {
+            Statement stmt = con.createStatement();
+            String Query = "DELETE FROM PersonData WHERE FacultyID = "+value ;
+            stmt.execute(Query);
             
             
             // System.out.println(rs.);
@@ -67,7 +80,6 @@ public class DbConnection {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return rs;
     }
 
 }
